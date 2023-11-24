@@ -2,12 +2,12 @@ package ru.gb.workers;
 
 public class Worker extends Employee{
 
-    protected Worker(String name, String secondName, String patronymic, String birthday) {
-        super(name, secondName, patronymic, birthday);
+    protected Worker(String name, String secondName, String patronymic, String birthday, double salary) {
+        super(name, secondName, patronymic, birthday, salary);
     }
 
-    public static Freelancer create(String name, String secondName, String patronymic, String birthday) {
-        return new Freelancer(name, secondName, patronymic, birthday);
+    public static Worker create(String name, String secondName, String patronymic, String birthday, double salary) {
+        return new Worker(name, secondName, patronymic, birthday, salary);
     }
 
     @Override

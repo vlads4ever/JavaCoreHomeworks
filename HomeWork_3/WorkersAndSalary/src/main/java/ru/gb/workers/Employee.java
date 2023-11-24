@@ -11,12 +11,13 @@ public abstract class Employee {
     private DateTimeFormatter datePattern;
     private double salary;
 
-    protected Employee(String name, String secondName, String patronymic, String birthday) {
+    protected Employee(String name, String secondName, String patronymic, String birthday, double salary) {
         this.name = name;
         this.secondName = secondName;
         this.patronymic = patronymic;
-        datePattern = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        datePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.birthday = LocalDate.parse(birthday, datePattern);
+        this.salary = salary;
     }
 
     public abstract double getAverageMonthlySalary();
@@ -47,11 +48,10 @@ public abstract class Employee {
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", birthday=" + birthday +
-                ", salary=" + salary +
-                '}';
+        return "Имя: '" + name + '\'' +
+                ", Фамилия: '" + secondName + '\'' +
+                ", Отчество: '" + patronymic + '\'' +
+                ", Дата рождения: " + birthday +
+                ", Зарплата: " + salary;
     }
 }
