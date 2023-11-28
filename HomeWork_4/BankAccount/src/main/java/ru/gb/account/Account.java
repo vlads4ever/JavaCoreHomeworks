@@ -11,14 +11,12 @@ public abstract class Account {
         this.balance = startBalance;
     }
 
-    public String putToAccount(double sum) {
-
-        return "Операция выполнена";
+    public void putToAccount(double sum) {
+        balance += sum;
     }
 
-    public String getFromAccount() {
-        return "Операция выполнена";
-
+    public void getFromAccount(double sum) {
+        balance -= sum;
     }
 
     public String getName() {
