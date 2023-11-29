@@ -1,6 +1,8 @@
 package ru.gb.validations;
 
 import ru.gb.account.Account;
+import ru.gb.account.CreditAccount;
+import ru.gb.account.DebitAccount;
 
 public class Validation {
 
@@ -23,9 +25,9 @@ public class Validation {
     }
 
     /**
-     * Проверка на наличие средств
-     * @param account
-     * @param sum
+     * Проверка на наличие средств на обычном счете
+     * @param account передаваемый на проверку счет
+     * @param sum сумма
      * @return
      */
     public static boolean checkBalance(Account account, double sum) {

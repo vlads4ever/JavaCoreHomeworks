@@ -17,13 +17,36 @@ public class Task2 {
     public static void main(String[] args) {
         AdvancedAccountManagement advancedAccountManagement = new AdvancedAccountManagement();
 
+        System.out.println("Пример валидной операции со счетами:");
         try {
-            advancedAccountManagement.createCreditAccount("Ivan Petrov", "1234567890");
-            advancedAccountManagement.createDebitAccount("Petr Ivanov", "1234567899", 2000);
-            advancedAccountManagement.doTransaction("1234567890", "1234567899", 5000);
+            advancedAccountManagement.createCreditAccount("Ivan Petrov", "1111111111", 10000);
+            advancedAccountManagement.createDebitAccount("Petr Ivanov", "2222222222", 2000);
+            advancedAccountManagement.doTransaction("1111111111", "2222222222", 5000);
+            advancedAccountManagement.putToAccount("1111111111", 30000);
         } catch (WrongAccountNumberException | IllegalArgumentException | InsufficientFundsException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("-------------------------------------------------------------------\n");
+
+        System.out.println("Пример недостатка средств на счете:");
+        try {
+            advancedAccountManagement.createCreditAccount("Ivan Petrov", "1234567890", 10000);
+            advancedAccountManagement.createDebitAccount("Petr Ivanov", "1234567899", 2000);
+            advancedAccountManagement.doTransaction("1234567890", "1234567899", 15000);
+        } catch (WrongAccountNumberException | IllegalArgumentException | InsufficientFundsException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("-------------------------------------------------------------------\n");
+
+        System.out.println("Пример неверной суммы:");
+        try {
+            advancedAccountManagement.createCreditAccount("Ivan Petrov", "1234567890", 10000);
+            advancedAccountManagement.createDebitAccount("Petr Ivanov", "1234567899", 2000);
+            advancedAccountManagement.doTransaction("1234567890", "1234567899", -15000);
+        } catch (WrongAccountNumberException | IllegalArgumentException | InsufficientFundsException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("-------------------------------------------------------------------\n");
 
     }
 }

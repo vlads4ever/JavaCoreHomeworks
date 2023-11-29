@@ -9,6 +9,9 @@ import ru.gb.validations.Validation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс хранит и управляет счетами клиентов
+ */
 public class AccountManagement {
     private List<Account> commonAccountsList;
 
@@ -28,13 +31,15 @@ public class AccountManagement {
             throws WrongAccountNumberException, IllegalArgumentException {
 
         if (!Validation.checkAccountNumber(accountNumber))
-            throw new WrongAccountNumberException("Неверный формат счета. Должно быть только 10 цифр.");
+            throw new WrongAccountNumberException(
+                    String.format("Неверный формат счета. Вы ввели: %s. Должно быть только 10 цифр.", accountNumber));
 
         if (!Validation.checkSum(startBalance))
-            throw new IllegalArgumentException("Не может быть отрицательной суммы!");
+            throw new IllegalArgumentException(
+                    String.format("Не может быть отрицательной суммы! Указанная сумма: %.2f", startBalance));
 
         commonAccountsList.add(new CommonAccount(name, accountNumber, startBalance));
-        System.out.printf("Счет на пользователя %s создан.\n", name);
+        System.out.printf("Счет на пользователя %s создан c начальным балансом %.2f.\n", name, startBalance);
     }
 
     /**
@@ -51,7 +56,8 @@ public class AccountManagement {
                 System.out.printf("Счет %s был пополнен на сумму: %.2f. Баланс счета: %.2f.\n",
                         account.getAccountNumber(), sum, account.getBalance());
             } else {
-                throw new IllegalArgumentException("Не может быть отрицательной суммы!");
+                throw new IllegalArgumentException(
+                        String.format("Не может быть отрицательной суммы! Указанная сумма: %.2f", sum));
             }
         } else {
             System.out.printf("Счет %s не найден.\n", accountNumber);
@@ -71,12 +77,14 @@ public class AccountManagement {
         if (account != null) {
             if (Validation.checkSum(sum)) {
                 if (!Validation.checkBalance(account, sum))
-                    throw new InsufficientFundsException("На балансе счета недостаточно средств!");
+                    throw new InsufficientFundsException(
+                            String.format("На балансе счета %s недостаточно средств!", account.getAccountNumber()));
                 account.getFromAccount(sum);
                 System.out.printf("Со счета %s снята сумма: %.2f. Баланс счета: %.2f.\n",
                         accountNumber, sum, account.getBalance());
             } else {
-                throw new IllegalArgumentException("Не может быть отрицательной суммы!");
+                throw new IllegalArgumentException(
+                        String.format("Не может быть отрицательной суммы! Указанная сумма: %.2f", sum));
             }
         } else {
             System.out.printf("Счет %s не найден.\n", accountNumber);

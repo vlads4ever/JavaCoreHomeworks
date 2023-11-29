@@ -21,45 +21,49 @@ public class Task1 {
     public static void main(String[] args) {
         AccountManagement accountManagement = new AccountManagement();
 
-        // Валидные операции со счетом
+        System.out.println("Пример валидной операции со счетами:");
         try {
-            accountManagement.createCommonAccount("Ivan Petrov", "1234567890", 1000);
+            accountManagement.createCommonAccount("Ivan Petrov", "1234567890", 10000);
             accountManagement.putToAccount("1234567890",350);
             accountManagement.getFromAccount("1234567890",5000);
         } catch (WrongAccountNumberException | IllegalArgumentException | InsufficientFundsException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("-------------------------------------------------------------------\n");
 
-        // Исключение: Неправильный формат счета
+        System.out.println("Исключение: Неправильный формат счета:");
         try {
             accountManagement.createCommonAccount("Petr Ivanov", "123456qqqq", 2000);
         } catch (WrongAccountNumberException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("-------------------------------------------------------------------\n");
 
-        // Исключение: Неправильный начальный баланс счета
+        System.out.println("Исключение: Неправильный начальный баланс счета:");
         try {
             accountManagement.createCommonAccount("Petr Ivanov", "1234567899", -2000);
         } catch (WrongAccountNumberException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("-------------------------------------------------------------------\n");
 
-        // Исключение: Отрицательная сумма операции
+        System.out.println("Исключение: Отрицательная сумма операции:");
         try {
             accountManagement.createCommonAccount("Petr Ivanov", "1234567899", 1000);
             accountManagement.putToAccount("1234567890",-350);
         } catch (WrongAccountNumberException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("-------------------------------------------------------------------\n");
 
-        // Исключение: Недостаточно средств на счете
+        System.out.println("Исключение: Недостаточно средств на счете:");
         try {
             accountManagement.createCommonAccount("Vasiliy Samoylov", "3334567899", 2000);
-            accountManagement.getFromAccount("1234567890",5000);
+            accountManagement.getFromAccount("3334567899",5000);
         } catch (WrongAccountNumberException | IllegalArgumentException | InsufficientFundsException e) {
             System.out.println(e.getMessage());
         }
-
+        System.out.println("-------------------------------------------------------------------\n");
 
     }
 }
